@@ -3,435 +3,366 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>web-aviso · Free Digital Marketing Audit (Prototype)</title>
+<title>web-aviso · Free Digital Marketing Audit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --navy:#0e2235; --blue:#1f7ae0; --blue-d:#155bb5; --teal:#16b8a6;
-    --bg:#f4f7fb; --card:#ffffff; --ink:#1a2733; --muted:#5c6b7a;
-    --good:#1aa260; --warn:#e8a317; --bad:#e0483b; --line:#e3e9f1;
-    --shadow:0 6px 22px rgba(16,40,70,.08);
+    --bg:#f7f9fc; --bg-elev:#ffffff; --ink:#0f172a; --muted:#64748b; --line:#e2e8f0;
+    --brand:#1f7ae0; --brand-600:#155bb5; --teal:#0ea5a4; --navy:#0b1f33;
+    --good:#16a34a; --warn:#d97706; --bad:#dc2626;
+    --radius:16px; --radius-lg:20px;
+    --shadow-sm:0 1px 2px rgba(16,24,40,.05);
+    --shadow-md:0 4px 12px rgba(16,24,40,.08);
+    --shadow-lg:0 12px 32px rgba(16,24,40,.12);
+  }
+  @media (prefers-color-scheme:dark){
+    :root{ --bg:#0b0f14; --bg-elev:#111827; --ink:#e5e7eb; --muted:#9aa4b2; --line:#1f2937; --shadow-sm:0 1px 2px rgba(0,0,0,.4); --shadow-md:0 4px 12px rgba(0,0,0,.4); --shadow-lg:0 12px 32px rgba(0,0,0,.5); }
   }
   *{box-sizing:border-box}
-  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-       background:var(--bg);color:var(--ink);line-height:1.55}
-  .wrap{max-width:960px;margin:0 auto;padding:0 18px}
-  header{background:linear-gradient(135deg,var(--navy),#163a5c);color:#fff;padding:34px 0 30px}
-  header .brand{font-weight:800;letter-spacing:.5px;font-size:18px;opacity:.9}
-  header h1{margin:14px 0 8px;font-size:30px;line-height:1.2}
-  header p{margin:0;opacity:.85;max-width:620px}
-  .badge{display:inline-block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);
-         padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:6px}
+  html,body{height:100%}
+  body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55}
+  .container{max-width:1120px;margin:0 auto;padding:0 24px}
+  
+  /* Nav */
+  .nav{position:sticky;top:0;z-index:40;background:rgba(247,249,252,.7);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--line)}
+  @media (prefers-color-scheme:dark){.nav{background:rgba(11,15,20,.6)}}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px}
+  .brand-mark{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--brand),var(--teal));box-shadow:var(--shadow-sm)}
+  .nav-cta{display:flex;gap:10px}
 
-  /* input */
-  .auditbar{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:18px;margin-top:-26px;
-            display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-  .auditbar input[type=text]{flex:1;min-width:220px;padding:13px 14px;border:1px solid var(--line);
-            border-radius:10px;font-size:15px}
-  .auditbar input[type=text]:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(31,122,224,.15)}
-  .btn{background:var(--blue);color:#fff;border:none;padding:13px 20px;border-radius:10px;font-size:15px;
-       font-weight:700;cursor:pointer;transition:.15s}
-  .btn:hover{background:var(--blue-d)}
-  .btn.ghost{background:transparent;color:var(--blue);border:1.5px solid var(--blue)}
-  .btn.ghost:hover{background:rgba(31,122,224,.08)}
-  .btn.teal{background:var(--teal)} .btn.teal:hover{filter:brightness(.93)}
-  .hint{font-size:12px;color:var(--muted);margin-top:8px}
+  /* Hero */
+  .hero{padding:56px 0 28px;background:radial-gradient(800px 400px at 20% -10%,rgba(31,122,224,.18),transparent),radial-gradient(600px 300px at 80% -20%,rgba(14,165,164,.18),transparent)}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;font-size:12px;font-weight:600;color:var(--muted);background:var(--bg-elev)}
+  .hero h1{font-size:clamp(28px,4vw,44px);line-height:1.1;margin:14px 0 10px;letter-spacing:-.02em}
+  .hero p{font-size:17px;color:var(--muted);max-width:680px;margin:0}
+  
+  /* Audit bar */
+  .audit{margin-top:28px;background:var(--bg-elev);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);padding:16px}
+  .audit-row{display:flex;gap:10px;flex-wrap:wrap}
+  .field{flex:1;min-width:240px;position:relative}
+  .field input{width:100%;padding:14px 14px 14px 40px;border:1px solid var(--line);border-radius:12px;background:transparent;font-size:15px;color:var(--ink);outline:none;transition:.15s}
+  .field input:focus{border-color:var(--brand);box-shadow:0 0 0 4px rgba(31,122,224,.12)}
+  .field svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:.6}
+  .btn{appearance:none;border:none;cursor:pointer;padding:13px 18px;border-radius:12px;font-weight:700;font-size:14.5px;transition:.15s;display:inline-flex;align-items:center;gap:8px}
+  .btn-primary{background:var(--brand);color:#fff;box-shadow:var(--shadow-sm)}
+  .btn-primary:hover{background:var(--brand-600);transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:var(--brand);border:1px solid var(--line)}
+  .btn-ghost:hover{background:rgba(31,122,224,.08)}
+  .hint{font-size:12.5px;color:var(--muted);margin:10px 2px 0}
 
-  section{margin:26px 0}
-  .hidden{display:none}
-  h2{font-size:21px;margin:0 0 4px}
+  /* Layout */
+  section{margin:32px 0}
+  .grid-2{display:grid;grid-template-columns:1.1fr .9fr;gap:20px}
+  @media(max-width:960px){.grid-2{grid-template-columns:1fr}}
+  .card{background:var(--bg-elev);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);padding:22px}
+  h2{font-size:20px;margin:0 0 6px;letter-spacing:-.01em}
   .sub{color:var(--muted);font-size:14px;margin:0 0 16px}
 
-  /* score ring */
-  .scorecard{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:24px;
-             display:flex;gap:26px;align-items:center;flex-wrap:wrap}
-  .ring{position:relative;width:150px;height:150px;flex:0 0 150px}
-  .ring svg{transform:rotate(-90deg)}
+  /* Score */
+  .score{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+  .ring{position:relative;width:148px;height:148px;flex:0 0 148px}
+  .ring svg{transform:rotate(-90deg);overflow:visible}
   .ring .num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-  .ring .num b{font-size:38px;line-height:1}
+  .ring .num b{font-size:40px;line-height:1;letter-spacing:-.02em}
   .ring .num span{font-size:12px;color:var(--muted)}
-  .scoremeta{flex:1;min-width:240px}
-  .scoremeta .grade{font-size:15px;font-weight:700;margin-bottom:6px}
-  .scoremeta p{margin:0 0 12px;color:var(--muted);font-size:14px}
+  .grade{font-weight:700;margin-bottom:6px}
+  .pill{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700;color:#fff}
+  .pill.good{background:var(--good)} .pill.warn{background:var(--warn)} .pill.bad{background:var(--bad)}
 
-  .subscores{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:16px}
-  .ss{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
-  .ss .lab{font-size:13px;color:var(--muted);display:flex;justify-content:space-between}
-  .ss .val{font-size:22px;font-weight:800;margin:6px 0}
-  .bar{height:7px;border-radius:6px;background:#eef2f7;overflow:hidden}
-  .bar > i{display:block;height:100%;border-radius:6px}
+  .subscores{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:14px}
+  .ss{border:1px solid var(--line);border-radius:14px;padding:14px;background:linear-gradient(180deg,rgba(255,255,255,.02),transparent)}
+  .ss .top{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+  .ss .val{font-size:24px;font-weight:800;margin:6px 0 8px}
+  .bar{height:8px;background:#eef2f7;border-radius:8px;overflow:hidden}
+  @media (prefers-color-scheme:dark){.bar{background:#0f172a}}
+  .bar > i{display:block;height:100%;border-radius:8px}
 
-  /* action plan */
-  .plan{display:grid;gap:12px}
-  .group{background:var(--card);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
-  .group h3{margin:0;padding:14px 18px;font-size:15px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line)}
-  .pill{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;color:#fff}
-  .pill.q{background:var(--good)} .pill.m{background:var(--warn)} .pill.s{background:var(--blue)}
-  .item{padding:14px 18px;border-bottom:1px solid var(--line)}
+  /* Plan */
+  .plan{display:grid;gap:14px}
+  .group{border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;background:var(--bg-elev);box-shadow:var(--shadow-sm)}
+  .group h3{margin:0;padding:14px 18px;font-size:14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(0,0,0,.02),transparent)}
+  .item{padding:16px 18px;border-bottom:1px solid var(--line)}
   .item:last-child{border-bottom:none}
-  .item .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
   .item b{font-size:15px}
-  .item .why{color:var(--muted);font-size:13.5px;margin:6px 0 0}
-  .item .meta{font-size:12px;color:var(--muted);margin-top:8px}
-  .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
-  .cta-inline{margin-top:10px}
-  .cta-inline a{font-size:13px;font-weight:700;color:var(--blue);text-decoration:none}
+  .why{color:var(--muted);font-size:14px;margin:6px 0 0}
+  .meta{font-size:12.5px;color:var(--muted);margin-top:8px}
+  .cta-inline a{font-size:13px;font-weight:600;color:var(--brand);text-decoration:none}
   .cta-inline a:hover{text-decoration:underline}
 
-  /* comparison + AISO + tools as cards */
-  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-  .card{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:20px}
-  .card h3{margin:0 0 6px;font-size:16px}
-  .aiso-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14px}
-  .aiso-row:last-child{border-bottom:none}
-  .tag{margin-left:auto;font-size:12px;font-weight:700;padding:2px 9px;border-radius:6px}
-  .tag.ok{background:#e4f6ec;color:var(--good)} .tag.no{background:#fdeceb;color:var(--bad)}
-  .tag.part{background:#fdf3e0;color:#b9810b}
+  /* AISO + lists */
+  .list{display:grid;gap:0}
+  .row{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px dashed var(--line);font-size:14px}
+  .row:last-child{border-bottom:none}
+  .tag{margin-left:auto;font-size:12px;font-weight:700;padding:3px 9px;border-radius:8px}
+  .tag.ok{background:rgba(22,163,74,.12);color:var(--good)} .tag.no{background:rgba(220,38,38,.12);color:var(--bad)} .tag.part{background:rgba(217,119,6,.14);color:var(--warn)}
 
-  table.cmp{width:100%;border-collapse:collapse;font-size:14px}
-  table.cmp th,table.cmp td{padding:11px 10px;text-align:left;border-bottom:1px solid var(--line)}
-  table.cmp th{color:var(--muted);font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.4px}
-  table.cmp td b{font-size:15px}
+  /* ROI */
+  .roi{position:relative;overflow:hidden;border-radius:var(--radius-lg);padding:26px;color:#fff;background:linear-gradient(135deg,#0b1f33 0%,#155bb5 55%,#0ea5a4 100%);box-shadow:var(--shadow-lg)}
+  .roi h2{color:#fff}
+  .roi-grid{display:flex;gap:14px;flex-wrap:wrap;align-items:end;margin:14px 0}
+  .roi label{font-size:12px;opacity:.85;display:block;margin-bottom:6px}
+  .roi input{padding:11px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;width:150px;font-size:15px;outline:none}
+  .roi .result{font-size:36px;font-weight:800;margin:8px 0 2px;letter-spacing:-.02em}
+
+  /* Gate */
+  .gate{border:2px dashed rgba(31,122,224,.4);border-radius:var(--radius-lg);padding:26px;text-align:center;background:linear-gradient(180deg,rgba(31,122,224,.06),transparent)}
+  .gate form{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+  .gate input{padding:12px 14px;border:1px solid var(--line);border-radius:12px;font-size:15px;min-width:260px;background:var(--bg-elev);color:var(--ink)}
+  .consent{font-size:12px;color:var(--muted);max-width:560px;margin:12px auto 0}
+
+  /* Table */
+  .table{width:100%;border-collapse:separate;border-spacing:0;font-size:14px}
+  .table th,.table td{padding:12px 10px;text-align:left;border-bottom:1px solid var(--line)}
+  .table th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
   .win{color:var(--good);font-weight:700} .lose{color:var(--bad);font-weight:700}
 
-  /* ROI calc */
-  .roi{background:linear-gradient(135deg,#11314f,#1f5e8a);color:#fff;border-radius:16px;padding:24px}
-  .roi h2{color:#fff}
-  .roi .row{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;margin:14px 0}
-  .roi label{font-size:13px;opacity:.85;display:block;margin-bottom:6px}
-  .roi input{padding:10px 12px;border-radius:9px;border:none;width:130px;font-size:15px}
-  .roi .result{font-size:34px;font-weight:800;margin:6px 0 2px}
-  .roi small{opacity:.8}
+  /* Final CTA */
+  .final{background:linear-gradient(135deg,var(--brand),var(--teal));color:#fff;border-radius:var(--radius-lg);padding:32px;text-align:center;box-shadow:var(--shadow-lg)}
+  .final .btn{background:#fff;color:#0b1f33}
+  .final .btn:hover{filter:brightness(.95)}
 
-  /* email gate */
-  .gate{background:var(--card);border:2px dashed var(--blue);border-radius:16px;padding:24px;text-align:center}
-  .gate h2{margin-top:0}
-  .gate form{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
-  .gate input{padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:15px;min-width:240px}
-  .consent{font-size:12px;color:var(--muted);max-width:520px;margin:12px auto 0}
-
-  .vs-paid{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:6px 4px;overflow:auto}
-  .final-cta{background:linear-gradient(135deg,var(--blue),var(--teal));color:#fff;border-radius:16px;
-             padding:30px;text-align:center}
-  .final-cta h2{color:#fff;font-size:24px}
-  .final-cta .btn{background:#fff;color:var(--blue-d)}
-  footer{color:var(--muted);font-size:12px;text-align:center;padding:30px 0}
-  .note{background:#fff8e6;border:1px solid #f0dca0;border-radius:10px;padding:12px 14px;font-size:13px;color:#7a5e16;margin-top:14px}
-  @media(max-width:560px){header h1{font-size:24px}.ring{flex-basis:130px;width:130px;height:130px}}
+  footer{color:var(--muted);font-size:12px;text-align:center;padding:36px 0}
+  .hidden{display:none}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="wrap">
-    <div class="brand">web-aviso<span style="opacity:.6">.</span></div>
-    <div class="badge">PROTOTYPE · Tier-1 features demo</div>
-    <h1>Free Digital Marketing Audit for UK SMEs</h1>
-    <p>One score. A plain-English action plan. Plus the AI-search check the big paid tools don't give you — in 2 minutes, no jargon.</p>
-  </div>
-</header>
-
-<div class="wrap">
-  <!-- INPUT -->
-  <div class="auditbar">
-    <input type="text" id="url" placeholder="Enter your website, e.g. yourbusiness.co.uk" value="yourbusiness.co.uk">
-    <input type="text" id="competitor" placeholder="(Optional) one competitor URL">
-    <button class="btn" onclick="runAudit()">Run my free audit →</button>
-  </div>
-  <div class="hint">Demo uses simulated data so you can see the full experience. Real version plugs into PageSpeed, GBP, SEO &amp; AI-search APIs. No sign-up to see your score.</div>
-
-  <!-- RESULTS -->
-  <div id="results" class="hidden">
-
-    <!-- 1 + 2: SCORE -->
-    <section>
-      <h2>Your Marketing Health Score</h2>
-      <p class="sub" id="urlLabel"></p>
-      <div class="scorecard">
-        <div class="ring">
-          <svg width="150" height="150">
-            <circle cx="75" cy="75" r="66" stroke="#eef2f7" stroke-width="14" fill="none"/>
-            <circle id="ringFill" cx="75" cy="75" r="66" stroke="#1f7ae0" stroke-width="14" fill="none"
-                    stroke-linecap="round" stroke-dasharray="415" stroke-dashoffset="415"/>
-          </svg>
-          <div class="num"><b id="scoreNum">0</b><span>out of 100</span></div>
-        </div>
-        <div class="scoremeta">
-          <div class="grade" id="grade"></div>
-          <p id="scoreText"></p>
-          <button class="btn ghost" onclick="document.getElementById('plan').scrollIntoView({behavior:'smooth'})">See my action plan</button>
-        </div>
-      </div>
-      <div class="subscores" id="subscores"></div>
-    </section>
-
-    <!-- 3: AISO -->
-    <section>
-      <h2>AI Search Visibility (AISO) <span style="font-size:12px;color:var(--teal);font-weight:700">· our USP</span></h2>
-      <p class="sub">Can AI assistants find and correctly recommend you? Most £100/mo SEO tools still don't check this.</p>
-      <div class="card">
-        <div id="aisoRows"></div>
-        <div class="cta-inline" style="margin-top:14px"><a href="https://www.web-aviso.com/aiso-audit">→ Get the full AISO audit from web-aviso</a></div>
-      </div>
-    </section>
-
-    <!-- 2: ACTION PLAN -->
-    <section id="plan">
-      <h2>Your Prioritised Action Plan</h2>
-      <p class="sub">Ranked by impact vs effort — the bit raw data dashboards never give you.</p>
-      <div class="plan" id="planGroups"></div>
-    </section>
-
-    <!-- 5: LOCAL + 6: COMPETITOR -->
-    <section>
-      <div class="cards">
-        <div class="card">
-          <h3>📍 Local SEO Snapshot</h3>
-          <div id="localRows"></div>
-          <div class="cta-inline" style="margin-top:12px"><a href="https://www.web-aviso.com/local-seo-audit">→ Dominate your local map pack</a></div>
-        </div>
-        <div class="card">
-          <h3>⚔️ You vs Competitor</h3>
-          <div id="cmpWrap"><p class="sub" style="margin:0">Add a competitor URL above to compare.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 14: ROI -->
-    <section>
-      <div class="roi">
-        <h2>The cost of doing nothing</h2>
-        <p style="opacity:.85;margin:0">Estimate the revenue your current gaps are leaving on the table each month.</p>
-        <div class="row">
-          <div><label>Monthly visitors</label><input type="number" id="visitors" value="1200"></div>
-          <div><label>Conversion rate %</label><input type="number" id="conv" value="2" step="0.1"></div>
-          <div><label>Avg order/lead value £</label><input type="number" id="aov" value="150"></div>
-          <button class="btn teal" onclick="calcROI()">Calculate</button>
-        </div>
-        <div class="result" id="roiResult">£—</div>
-        <small id="roiNote">Estimated extra monthly revenue if you closed the gaps in your action plan.</small>
-      </div>
-    </section>
-
-    <!-- 4: EMAIL GATE -->
-    <section>
-      <div class="gate">
-        <h2>📄 Get your full report as a PDF</h2>
-        <p class="sub" style="margin:0 auto;max-width:520px">Includes every finding explained, the full action plan, your AISO results and a 90-day roadmap. Free.</p>
-        <form onsubmit="capture(event)">
-          <input type="email" required placeholder="you@yourbusiness.co.uk" id="email">
-          <button class="btn" type="submit">Email me the report</button>
-        </form>
-        <p class="consent">By requesting the report you agree to web-aviso contacting you about your results, in line with our Privacy Policy (UK GDPR). Unsubscribe anytime. We never sell your data.</p>
-        <div id="captured" class="hidden" style="margin-top:14px;color:var(--good);font-weight:700">✓ Thanks! Your report is on its way (demo). A web-aviso specialist will follow up.</div>
-      </div>
-    </section>
-
-    <!-- VS PAID -->
-    <section>
-      <h2>Why not just buy SEMrush, Ahrefs or Moz?</h2>
-      <p class="sub">Honest comparison for a busy SME owner.</p>
-      <div class="vs-paid">
-        <table class="cmp">
-          <tr><th>What you need</th><th>Paid SEO software</th><th>web-aviso Audit</th></tr>
-          <tr><td>Price</td><td>£79–£129+/month</td><td><span class="win">Free</span></td></tr>
-          <tr><td>Time to a useful answer</td><td>Hours of learning</td><td><span class="win">2 minutes</span></td></tr>
-          <tr><td>Output style</td><td>Raw data dashboards</td><td><span class="win">Plain-English plan</span></td></tr>
-          <tr><td>AI search (AISO/GEO)</td><td>Limited / emerging</td><td><span class="win">Built in</span></td></tr>
-          <tr><td>UK SME focus</td><td>Global / enterprise</td><td><span class="win">Tailored</span></td></tr>
-          <tr><td>Someone to do the work</td><td>DIY only</td><td><span class="win">We can do it for you</span></td></tr>
-        </table>
-      </div>
-    </section>
-
-    <!-- FINAL CTA -->
-    <section>
-      <div class="final-cta">
-        <h2>Want the gaps fixed, not just found?</h2>
-        <p style="opacity:.92;max-width:520px;margin:0 auto 18px">Book a free 15-minute strategy call. We'll walk through your results and show you exactly what to do first.</p>
-        <a class="btn" href="https://www.web-aviso.com/contact">Book my free strategy call →</a>
-      </div>
-    </section>
-
-    <div class="note">⚠️ Prototype note: all numbers are simulated client-side to demonstrate UX. In production, scores come from real APIs (Google PageSpeed Insights, Google Business Profile, an SEO data provider, and an LLM for the AISO check). Email capture would post to your CRM/ESP with double opt-in.</div>
+<div class="nav">
+  <div class="container nav-inner">
+    <div class="brand"><span class="brand-mark"></span> web-aviso</div>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="https://www.web-aviso.com">Website</a>
+      <a class="btn btn-primary" href="https://www.web-aviso.com/contact">Book call</a>
+    </div>
   </div>
 </div>
 
-<footer>
-  web-aviso · Free Digital Marketing Audit (prototype) · Formby · Liverpool · NW England<br>
-  Privacy Policy · Terms &amp; Conditions · Cookie Policy
-</footer>
+<header class="hero">
+  <div class="container">
+    <span class="eyebrow">FREE TOOL · No sign-up</span>
+    <h1>Free Digital Marketing Audit for UK SMEs</h1>
+    <p>One clear score. A plain-English action plan. Plus the AI-search visibility check most £100/mo tools miss.</p>
+    
+    <div class="audit">
+      <div class="audit-row">
+        <div class="field">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M10 17a7 7 0 1 0 0-14 7 7 0 0 0 0 14Zm10 4-5.2-5.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <input id="url" type="text" placeholder="yourbusiness.co.uk" value="yourbusiness.co.uk">
+        </div>
+        <div class="field">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12h16M12 4v16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <input id="competitor" type="text" placeholder="(Optional) competitor URL">
+        </div>
+        <button class="btn btn-primary" onclick="runAudit()">Run my free audit →</button>
+      </div>
+      <div class="hint">Demo uses simulated data. Production connects to PageSpeed, GBP, SEO & AI-search APIs.</div>
+    </div>
+  </div>
+</header>
+
+<main class="container" id="results" class="hidden">
+  <section class="grid-2">
+    <div class="card">
+      <h2>Your Marketing Health Score</h2>
+      <p class="sub" id="urlLabel"></p>
+      <div class="score">
+        <div class="ring">
+          <svg width="148" height="148" viewBox="0 0 148 148">
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#1f7ae0"/><stop offset="100%" stop-color="#0ea5a4"/>
+              </linearGradient>
+            </defs>
+            <circle cx="74" cy="74" r="64" stroke="currentColor" stroke-opacity=".1" stroke-width="12" fill="none"/>
+            <circle id="ringFill" cx="74" cy="74" r="64" stroke="url(#g)" stroke-width="12" fill="none" stroke-linecap="round" stroke-dasharray="402" stroke-dashoffset="402"/>
+          </svg>
+          <div class="num"><b id="scoreNum">0</b><span>out of 100</span></div>
+        </div>
+        <div style="flex:1;min-width:240px">
+          <div class="grade" id="grade"></div>
+          <p id="scoreText" style="color:var(--muted);margin:0 0 12px"></p>
+          <button class="btn btn-ghost" onclick="document.getElementById('plan').scrollIntoView({behavior:'smooth'})">See action plan</button>
+        </div>
+      </div>
+      <div class="subscores" id="subscores"></div>
+    </div>
+
+    <div class="card">
+      <h2>AI Search Visibility (AISO)</h2>
+      <p class="sub">Can ChatGPT, Perplexity & Google AI find and recommend you correctly?</p>
+      <div class="list" id="aisoRows"></div>
+      <div class="cta-inline" style="margin-top:12px"><a href="https://www.web-aviso.com/aiso-audit">Get the full AISO audit →</a></div>
+    </div>
+  </section>
+
+  <section id="plan">
+    <h2>Your Prioritised Action Plan</h2>
+    <p class="sub">Ranked by impact vs effort — exactly what to do first.</p>
+    <div class="plan" id="planGroups"></div>
+  </section>
+
+  <section class="grid-2">
+    <div class="card">
+      <h2>Local SEO Snapshot</h2>
+      <div class="list" id="localRows"></div>
+    </div>
+    <div class="card">
+      <h2>You vs Competitor</h2>
+      <div id="cmpWrap"><p class="sub" style="margin:0">Add a competitor URL above to compare.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="roi">
+      <h2>The cost of doing nothing</h2>
+      <p style="opacity:.9;margin:0">Estimate monthly revenue left on the table.</p>
+      <div class="roi-grid">
+        <div><label>Monthly visitors</label><input type="number" id="visitors" value="1200"></div>
+        <div><label>Conversion %</label><input type="number" id="conv" value="2" step="0.1"></div>
+        <div><label>Avg value £</label><input type="number" id="aov" value="150"></div>
+        <button class="btn" style="background:#fff;color:#0b1f33" onclick="calcROI()">Calculate</button>
+      </div>
+      <div class="result" id="roiResult">£—</div>
+      <small id="roiNote" style="opacity:.85"></small>
+    </div>
+  </section>
+
+  <section>
+    <div class="gate">
+      <h2>📄 Get your full PDF report</h2>
+      <p class="sub" style="margin:0 auto;max-width:540px">Includes every finding, AISO results, and a 90-day roadmap.</p>
+      <form onsubmit="capture(event)">
+        <input type="email" required placeholder="you@yourbusiness.co.uk" id="email">
+        <button class="btn btn-primary" type="submit">Email me the report</button>
+      </form>
+      <p class="consent">By requesting you agree to web-aviso contacting you (UK GDPR). Unsubscribe anytime.</p>
+      <div id="captured" class="hidden" style="margin-top:12px;color:var(--good);font-weight:700">✓ Thanks! Your report is on its way (demo).</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Why not just buy SEMrush or Ahrefs?</h2>
+    <div class="card" style="padding:8px">
+      <table class="table">
+        <tr><th>What you need</th><th>Paid SEO software</th><th>web-aviso Audit</th></tr>
+        <tr><td>Price</td><td>£79–£129+/mo</td><td><span class="win">Free</span></td></tr>
+        <tr><td>Time to answer</td><td>Hours of learning</td><td><span class="win">2 minutes</span></td></tr>
+        <tr><td>Output</td><td>Raw dashboards</td><td><span class="win">Plain-English plan</span></td></tr>
+        <tr><td>AI search (AISO)</td><td>Limited</td><td><span class="win">Built-in</span></td></tr>
+        <tr><td>UK SME focus</td><td>Global</td><td><span class="win">Tailored</span></td></tr>
+        <tr><td>Done-for-you</td><td>DIY</td><td><span class="win">We can do it</span></td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="final">
+      <h2 style="margin:0 0 8px;font-size:26px">Want the gaps fixed, not just found?</h2>
+      <p style="opacity:.95;max-width:560px;margin:0 auto 16px">Book a free 15-min strategy call. We'll walk through your results.</p>
+      <a class="btn" href="https://www.web-aviso.com/contact">Book my free strategy call →</a>
+    </div>
+  </section>
+</main>
+
+<footer>web-aviso · Free Digital Marketing Audit · Formby · Liverpool · © 2026</footer>
 
 <script>
-/* ---------- helpers ---------- */
-function rnd(min,max){return Math.floor(Math.random()*(max-min+1))+min;}
-function colourFor(v){return v>=70?'var(--good)':v>=45?'var(--warn)':'var(--bad)';}
-var lastScore=54;
+function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a}
+function colour(v){return v>=70?'var(--good)':v>=45?'var(--warn)':'var(--bad)'}
+let lastScore=54;
 
 function runAudit(){
-  var url=(document.getElementById('url').value||'your site').trim();
-  var comp=(document.getElementById('competitor').value||'').trim();
+  const url=(document.getElementById('url').value||'your site').trim();
+  const comp=document.getElementById('competitor').value.trim();
   document.getElementById('results').classList.remove('hidden');
-  document.getElementById('urlLabel').textContent='Audited: '+url+'  ·  '+new Date().toLocaleDateString('en-GB');
+  document.getElementById('urlLabel').textContent=`Audited: ${url} · ${new Date().toLocaleDateString('en-GB')}`;
 
-  /* sub-scores */
-  var subs=[
+  const subs=[
     {k:'SEO',v:rnd(40,75)},{k:'AI Visibility',v:rnd(20,55)},{k:'Content',v:rnd(45,80)},
-    {k:'Technical',v:rnd(50,85)},{k:'Local',v:rnd(35,70)},{k:'Trust & Reviews',v:rnd(40,80)}
+    {k:'Technical',v:rnd(50,85)},{k:'Local',v:rnd(35,70)},{k:'Trust',v:rnd(40,80)}
   ];
-  var overall=Math.round(subs.reduce((a,b)=>a+b.v,0)/subs.length);
-  lastScore=overall;
+  const overall=Math.round(subs.reduce((a,b)=>a+b.v,0)/subs.length); lastScore=overall;
 
-  /* ring */
-  var off=415-(415*overall/100);
-  var ring=document.getElementById('ringFill');
-  ring.setAttribute('stroke',colourFor(overall));
-  setTimeout(()=>{ring.style.transition='stroke-dashoffset 1s ease';ring.style.strokeDashoffset=off;},60);
-  animateNum('scoreNum',overall);
+  const ring=document.getElementById('ringFill');
+  const off=402-(402*overall/100);
+  ring.style.transition='stroke-dashoffset 1s ease';
+  ring.style.strokeDashoffset=off;
+  animate('scoreNum',overall);
 
-  var grade=overall>=70?'Strong — but room to win':overall>=45?'Average — clear quick wins available':'At risk — competitors are ahead';
-  document.getElementById('grade').textContent=grade;
-  document.getElementById('grade').style.color=colourFor(overall);
-  document.getElementById('scoreText').textContent='Your site scores '+overall+'/100 across 6 pillars. Below are the highest-impact fixes, ranked so you know exactly what to do first.';
+  const gradeEl=document.getElementById('grade');
+  const grade=overall>=70?'Strong — room to win':overall>=45?'Average — clear quick wins':'At risk — competitors ahead';
+  const pill=overall>=70?'good':overall>=45?'warn':'bad';
+  gradeEl.innerHTML=`<span class="pill ${pill}">${grade}</span>`;
+  document.getElementById('scoreText').textContent=`Your site scores ${overall}/100 across 6 pillars.`;
 
-  /* sub-score cards */
-  document.getElementById('subscores').innerHTML=subs.map(s=>
-    `<div class="ss"><div class="lab"><span>${s.k}</span><span style="color:${colourFor(s.v)};font-weight:700">${s.v>=70?'Good':s.v>=45?'OK':'Weak'}</span></div>
-     <div class="val" style="color:${colourFor(s.v)}">${s.v}</div>
-     <div class="bar"><i style="width:${s.v}%;background:${colourFor(s.v)}"></i></div></div>`).join('');
+  document.getElementById('subscores').innerHTML=subs.map(s=>`
+    <div class="ss">
+      <div class="top"><span>${s.k}</span><span style="color:${colour(s.v)};font-weight:700">${s.v>=70?'Good':s.v>=45?'OK':'Weak'}</span></div>
+      <div class="val" style="color:${colour(s.v)}">${s.v}</div>
+      <div class="bar"><i style="width:${s.v}%;background:${colour(s.v)}"></i></div>
+    </div>`).join('');
 
-  buildAISO();
-  buildPlan();
-  buildLocal();
+  buildAISO(); buildPlan(); buildLocal();
   if(comp) buildCompare(url,comp,overall); else document.getElementById('cmpWrap').innerHTML='<p class="sub" style="margin:0">Add a competitor URL above to compare.</p>';
-  calcROI();
+  calcROI(); setTimeout(reportHeight,400);
 }
-
-function animateNum(id,target){
-  var el=document.getElementById(id),cur=0;
-  var step=Math.max(1,Math.round(target/40));
-  var t=setInterval(()=>{cur+=step;if(cur>=target){cur=target;clearInterval(t);}el.textContent=cur;},20);
-}
-
-/* ---------- AISO ---------- */
+function animate(id,t){const el=document.getElementById(id);let c=0;const s=Math.max(1,Math.round(t/40));const i=setInterval(()=>{c+=s;if(c>=t){c=t;clearInterval(i)}el.textContent=c},18)}
 function buildAISO(){
-  var checks=[
-    {n:'Found by ChatGPT for your service + town',s:Math.random()>.5?'part':'no'},
+  const checks=[
+    {n:'Found by ChatGPT for service + town',s:Math.random()>.5?'part':'no'},
     {n:'Listed in Google AI Overviews',s:Math.random()>.6?'ok':'no'},
-    {n:'Described accurately by Perplexity',s:Math.random()>.5?'part':'ok'},
-    {n:'Structured data (schema) AI can read',s:Math.random()>.5?'ok':'no'},
-    {n:'Business facts consistent across the web',s:Math.random()>.4?'part':'ok'}
-  ];
-  var map={ok:['ok','Visible'],part:['part','Partial'],no:['no','Missing']};
-  document.getElementById('aisoRows').innerHTML=checks.map(c=>{
-    var m=map[c.s];
-    return `<div class="aiso-row"><span>${c.n}</span><span class="tag ${m[0]}">${m[1]}</span></div>`;
-  }).join('');
+    {n:'Described by Perplexity',s:Math.random()>.5?'part':'ok'},
+    {n:'Schema markup readable by AI',s:Math.random()>.5?'ok':'no'},
+    {n:'NAP consistency',s:Math.random()>.4?'part':'ok'}
+  ]; const m={ok:['ok','Visible'],part:['part','Partial'],no:['no','Missing']};
+  document.getElementById('aisoRows').innerHTML=checks.map(c=>`<div class="row"><span>${c.n}</span><span class="tag ${m[c.s][0]}">${m[c.s][1]}</span></div>`).join('');
 }
-
-/* ---------- Action plan ---------- */
 function buildPlan(){
-  var groups=[
-    {cls:'q',label:'QUICK WINS · this week',color:'var(--good)',items:[
-      {t:'Add missing meta titles & descriptions on 4 key pages',why:'Search engines and AI assistants use these to decide whether to show you. Yours are blank — easy ranking points.',impact:'High',effort:'Low',svc:['Technical SEO','technical-seo']},
-      {t:'Claim/complete your Google Business Profile',why:'A complete profile is the #1 driver of local "near me" visibility and map-pack ranking.',impact:'High',effort:'Low',svc:['Local SEO Audit','local-seo-audit']}
+  const groups=[
+    {label:'QUICK WINS · this week',items:[
+      {t:'Add missing meta titles & descriptions',why:'Search & AI use these to decide to show you.',i:'High',e:'Low',l:'technical-seo'},
+      {t:'Complete Google Business Profile',why:'#1 driver of local map-pack visibility.',i:'High',e:'Low',l:'local-seo-audit'}
     ]},
-    {cls:'m',label:'THIS MONTH',color:'var(--warn)',items:[
-      {t:'Add schema markup so AI search can read your business',why:'Without structured data, AI assistants struggle to recommend you correctly. This is a direct AISO win.',impact:'High',effort:'Medium',svc:['AISO Audit','aiso-audit']},
-      {t:'Publish 2 pages targeting local long-tail keywords',why:'You currently rank for almost no commercial-intent local terms your buyers actually search.',impact:'Medium',effort:'Medium',svc:['Content Marketing','content-marketing']}
+    {label:'THIS MONTH',items:[
+      {t:'Add schema for AI search',why:'Helps ChatGPT/Perplexity recommend you correctly.',i:'High',e:'Medium',l:'aiso-audit'},
+      {t:'Publish 2 local long-tail pages',why:'Capture commercial intent searches.',i:'Medium',e:'Medium',l:'content-marketing'}
     ]},
-    {cls:'s',label:'STRATEGIC · best done with help',color:'var(--blue)',items:[
-      {t:'Improve Core Web Vitals (page speed & mobile)',why:'Slow load is costing you rankings and conversions. Needs dev work on the build.',impact:'High',effort:'High',svc:['Technical SEO','technical-seo']},
-      {t:'Build local citations & quality backlinks',why:'Your domain authority trails competitors. A structured citation/link campaign closes the gap.',impact:'High',effort:'High',svc:['Link Building & Citations','citation-services']}
+    {label:'STRATEGIC',items:[
+      {t:'Improve Core Web Vitals',why:'Speed impacts rankings & conversions.',i:'High',e:'High',l:'technical-seo'},
+      {t:'Build citations & backlinks',why:'Close authority gap vs competitors.',i:'High',e:'High',l:'citation-services'}
     ]}
   ];
-  var pillClass={q:'q',m:'m',s:'s'};
   document.getElementById('planGroups').innerHTML=groups.map(g=>`
-    <div class="group">
-      <h3><span class="pill ${pillClass[g.cls]}">${g.label}</span></h3>
+    <div class="group"><h3>${g.label}</h3>
       ${g.items.map(it=>`
         <div class="item">
-          <div class="top"><b><span class="dot" style="background:${g.color}"></span>${it.t}</b></div>
+          <b>${it.t}</b>
           <div class="why">${it.why}</div>
-          <div class="meta">Impact: <b style="color:var(--ink)">${it.impact}</b> &nbsp;·&nbsp; Effort: <b style="color:var(--ink)">${it.effort}</b></div>
-          <div class="cta-inline"><a href="https://www.web-aviso.com/${it.svc[1]}">→ Want web-aviso to handle this? (${it.svc[0]})</a></div>
+          <div class="meta">Impact: <b>${it.i}</b> · Effort: <b>${it.e}</b></div>
+          <div class="cta-inline"><a href="https://www.web-aviso.com/${it.l}">→ Want web-aviso to handle this?</a></div>
         </div>`).join('')}
     </div>`).join('');
 }
-
-/* ---------- Local ---------- */
 function buildLocal(){
-  var rows=[
-    {n:'Google Business Profile completeness',s:rnd(40,90)+'%'},
-    {n:'NAP consistency across directories',s:Math.random()>.5?'3 mismatches':'Consistent'},
-    {n:'Google reviews',s:rnd(4,60)+' ('+(3.5+Math.random()*1.4).toFixed(1)+'★)'},
-    {n:'Local pack visibility (top keywords)',s:rnd(0,3)+' of 5'}
-  ];
-  document.getElementById('localRows').innerHTML=rows.map(r=>
-    `<div class="aiso-row"><span>${r.n}</span><span style="margin-left:auto;font-weight:700">${r.s}</span></div>`).join('');
+  document.getElementById('localRows').innerHTML=[
+    ['GBP completeness',rnd(40,90)+'%'],
+    ['NAP consistency',Math.random()>.5?'Consistent':'3 mismatches'],
+    ['Google reviews',`${rnd(4,60)} (${(3.5+Math.random()*1.4).toFixed(1)}★)`],
+    ['Local pack visibility',`${rnd(0,3)} of 5`]
+  ].map(r=>`<div class="row"><span>${r[0]}</span><span style="margin-left:auto;font-weight:700">${r[1]}</span></div>`).join('');
 }
-
-/* ---------- Competitor ---------- */
-function buildCompare(you,them,yourScore){
-  var t=(n)=>rnd(n-12,n+18);
-  var rows=[
-    ['Health score',yourScore,Math.min(99,t(yourScore))],
-    ['Ranking keywords',rnd(20,120),rnd(60,300)],
-    ['Domain authority',rnd(8,30),rnd(15,45)],
-    ['Monthly est. traffic',rnd(200,1500),rnd(600,4000)],
-    ['Google reviews',rnd(3,40),rnd(10,120)]
-  ];
-  document.getElementById('cmpWrap').innerHTML=`
-    <table class="cmp">
-      <tr><th>Metric</th><th>${you.slice(0,16)}</th><th>${them.slice(0,16)}</th></tr>
-      ${rows.map(r=>{
-        var youWin=r[1]>=r[2];
-        return `<tr><td>${r[0]}</td>
-          <td class="${youWin?'win':'lose'}"><b>${r[1].toLocaleString()}</b></td>
-          <td class="${youWin?'lose':'win'}">${r[2].toLocaleString()}</td></tr>`;
-      }).join('')}
-    </table>
-    <div class="cta-inline" style="margin-top:10px"><a href="https://www.web-aviso.com/competitor-analysis">→ Track all your competitors monthly</a></div>`;
+function buildCompare(y,t,s){
+  const rows=[['Health score',s,Math.min(99,rnd(s-12,s+18))],['Keywords',rnd(20,120),rnd(60,300)],['Domain authority',rnd(8,30),rnd(15,45)],['Est. traffic',rnd(200,1500),rnd(600,4000)],['Reviews',rnd(3,40),rnd(10,120)]];
+  document.getElementById('cmpWrap').innerHTML=`<table class="table"><tr><th>Metric</th><th>${y.slice(0,16)}</th><th>${t.slice(0,16)}</th></tr>${rows.map(r=>{const w=r[1]>=r[2];return `<tr><td>${r[0]}</td><td class="${w?'win':'lose'}"><b>${r[1].toLocaleString()}</b></td><td class="${w?'lose':'win'}">${r[2].toLocaleString()}</td></tr>`}).join('')}</table>`;
 }
-
-/* ---------- ROI ---------- */
-function calcROI(){
-  var v=+document.getElementById('visitors').value||0;
-  var c=(+document.getElementById('conv').value||0)/100;
-  var a=+document.getElementById('aov').value||0;
-  var gap=(100-lastScore)/100;             // bigger gap = more upside
-  var uplift=0.15+gap*0.6;                  // 15%–~75% potential traffic+conv uplift
-  var current=v*c*a;
-  var extra=Math.round(current*uplift);
-  document.getElementById('roiResult').textContent='£'+extra.toLocaleString()+' / month';
-  document.getElementById('roiNote').textContent='Estimated extra monthly revenue if you closed the gaps in your action plan (≈'+Math.round(uplift*100)+'% uplift, based on your '+lastScore+'/100 score). Estimate only.';
-}
-
-/* ---------- Email gate ---------- */
-function capture(e){
-  e.preventDefault();
-  document.getElementById('captured').classList.remove('hidden');
-}
-
-/* auto-run so preview shows the full experience */
+function calcROI(){const v=+visitors.value||0,c=(+conv.value||0)/100,a=+aov.value||0,gap=(100-lastScore)/100,uplift=0.15+gap*0.6,extra=Math.round(v*c*a*uplift);roiResult.textContent='£'+extra.toLocaleString()+' / month';roiNote.textContent=`≈${Math.round(uplift*100)}% uplift potential based on ${lastScore}/100 score.`}
+function capture(e){e.preventDefault();captured.classList.remove('hidden')}
 window.addEventListener('DOMContentLoaded',runAudit);
-
-/* ---------- iframe auto-height (for Strikingly / any embed) ----------
-   Tells the parent page how tall this content is, so the iframe can
-   resize and avoid an inner scrollbar. Safe to leave on when not embedded. */
-function reportHeight(){
-  try{
-    var h=Math.max(document.body.scrollHeight,document.documentElement.scrollHeight);
-    if(window.parent && window.parent!==window){
-      window.parent.postMessage({type:'webaviso-audit-height',height:h},'*');
-    }
-  }catch(e){}
-}
-window.addEventListener('load',reportHeight);
-window.addEventListener('resize',reportHeight);
-/* re-report after interactions that change height (re-audit, ROI, capture) */
-document.addEventListener('click',function(){setTimeout(reportHeight,400);});
-document.addEventListener('submit',function(){setTimeout(reportHeight,400);});
-setInterval(reportHeight,1500); /* safety net for async content changes */
+function reportHeight(){try{const h=Math.max(document.body.scrollHeight,document.documentElement.scrollHeight);parent!==window&&parent.postMessage({type:'webaviso-audit-height',height:h},'*')}catch(e){}}
+addEventListener('load',reportHeight);addEventListener('resize',reportHeight);
 </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a0a2698a5e9d8560',t:'MTc4MTE5OTc0NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a0a9f32e8d19e4ed',t:'MTc4MTI3ODc4Mw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
